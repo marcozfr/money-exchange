@@ -14,6 +14,7 @@ export class AuthComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   returnUrl: string;
+  errorMessage: string;
 
   constructor(
       private authService : AuthService,
@@ -46,7 +47,11 @@ export class AuthComponent implements OnInit {
                       this.router.navigate(['/']);
                   },
                   error => {
-                      console.log(error);
+                      if(error.status == '401'){
+                          this.errorMessage = 'Invalid Credentials';
+                      }else {
+                          this.errorMessage = 'Internal Server error';
+                      }
                   });
       }
 

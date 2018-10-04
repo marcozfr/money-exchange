@@ -52,6 +52,13 @@ img {
   box-shadow: 10px 10px 5px grey;
 }
 
+.login-form {
+		width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
 .main-content {
    background-color: #c3cbd8;
    min-height: calc(400px - 180px);
@@ -74,12 +81,19 @@ img {
   background-color : #afafaf;
 }
 
-.logo {
-  margin: 20px auto 20px auto;
-	width: 80px;
+.error-message {
+	width: 100%;
+	margin-top: .50rem;
+	font-size: 100%;
+	color: #dc3545;
 }
 
-.btn-calculate {
+.logo {
+  margin: 20px auto 20px auto;
+	width: 90px;
+}
+
+.btn-site {
   text-transform: uppercase;
   padding:  0.7rem 1.9rem;
   border-style : none;

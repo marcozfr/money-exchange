@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
-import { User } from '../../model/auth/user';
+import { User } from '../../model/auth/user.model';
 
 import { SERVER_API_URL } from '../../app.constants';
 import { Observable } from 'rxjs';

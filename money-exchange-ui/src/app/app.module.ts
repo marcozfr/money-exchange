@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { QuotationComponent } from './components/quotation/quotation.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
 import { AuthInterceptor } from './components/core/auth.interceptor';
 import { AuthRedirect } from './components/core/auth.redirect';
 import { AuthComponent } from './components/auth/auth.component';
@@ -18,7 +17,6 @@ import { TextMaskModule } from 'angular2-text-mask';
   declarations: [
     AppComponent,
     QuotationComponent,
-    NavigationComponent,
     AuthComponent
   ],
   imports: [

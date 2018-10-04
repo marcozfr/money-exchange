@@ -1,7 +1,9 @@
 package com.example.exchange.repositories;
 
 import java.util.Date;
+import java.util.List;
 
+import com.example.exchange.model.Currency;
 import com.example.exchange.model.ExchangeRate;
 
 /**

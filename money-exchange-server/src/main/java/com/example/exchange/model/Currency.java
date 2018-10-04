@@ -13,6 +13,9 @@ public class Currency {
 	@Column(name="CURRENCY_CODE")
 	private String currencyCode;
 	
+	@Column(name="CURRENCY_SYMBOL")
+	private String currencySymbol;
+	
 	@Column(name="CURRENCY_NAME")
 	private String currencyName;
 
@@ -30,6 +33,14 @@ public class Currency {
 
 	public void setCurrencyName(String currencyName) {
 		this.currencyName = currencyName;
+	}
+
+	public String getCurrencySymbol() {
+		return currencySymbol;
+	}
+
+	public void setCurrencySymbol(String currencySymbol) {
+		this.currencySymbol = currencySymbol;
 	}
 	
 	

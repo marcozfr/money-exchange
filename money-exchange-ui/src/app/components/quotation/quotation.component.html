@@ -1,5 +1,6 @@
 <main>
   <header class="jumbotron text-center main-header">
+    <p class="float-right"><a [routerLink]="['/login']">Logout</a></p>
     <div class="container">
       <div class="logo-wrapper">
           <img class="logo" src="../../assets/img/profits.svg" alt="Money Exchange IO">
@@ -9,25 +10,32 @@
     </div>
   </header>
   <section class="text-center main-content">
-    <div class="container inner-main-content">
-      <div class="row form-group">
-          <div class="col-md-6">
-            <input class="form-control" type="text" id="originCurrency" placeholder="{{exchangeRequest.origin}}"
-              mame="originCurrency" required [(ngModel)]="exchangeRequest.amountStr"
-              [textMask]="{mask: currencyMask}"  />
+    <form [formGroup]="quotationForm" (ngSubmit)="onSubmit()">
+      <div class="container inner-main-content">
+        <div class="row form-group">
+            <div class="col-md-6">
+              <input class="form-control" formControlName="amount" type="text" id="originCurrency" placeholder="{{exchangeRequest.origin}}"
+                mame="originCurrency" required
+                [ngClass]="{ 'is-invalid': submitted && quotationForm.controls.amount.errors }"
+                [textMask]="{mask: currencyMask}"  />
+              <div *ngIf="submitted && quotationForm.controls.amount.errors" class="invalid-feedback">
+                    <div *ngIf="quotationForm.controls.amount.errors.required">Amount is required</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" type="text" disabled="disabled" id="originCurrency" placeholder="{{exchangeRequest.destination}}"
+                name="destinationCurrency" required [(ngModel)]="exchangeResponse.quotationAmount"
+                [ngModelOptions]="{standalone: true}"
+                [textMask]="{mask: eurCurrencyMask}"  />
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn-site btn btn-secondary" type="submit">Calculate</button>
           </div>
-          <div class="col-md-6">
-            <input class="form-control" type="text" disabled="disabled" id="originCurrency" placeholder="{{exchangeRequest.destination}}"
-              name="destinationCurrency" required [(ngModel)]="exchangeResponse.quotationAmount"
-              [textMask]="{mask: currencyMask}"  />
-          </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <button class="btn-calculate btn btn-secondary" type="submit" (click)='getExchangeRate()'>Calculate</button>
         </div>
       </div>
-    </div>
+    </form>
   </section>
 </main>
 <footer class="main-footer text-muted">
@@ -40,7 +48,7 @@
         <p>Best money exchange site ever</p>
       </div>
       <div class="col-md-4">
-        <p>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
+        <p>Icons made by <a target="_blank" href="http://www.freepik.com" title="Freepik">Freepik</a> from <a target="_blank" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
       </div>
     </div>
   </div>

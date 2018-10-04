@@ -12,7 +12,7 @@ export class AuthRedirect implements CanActivate {
           return true;
         }
         console.log('not logged in');
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+        this.router.navigate(['/login']);
         return false;
     }
 }
