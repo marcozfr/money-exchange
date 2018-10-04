@@ -13,12 +13,19 @@ import org.springframework.stereotype.Component;
 
 import com.example.exchange.repositories.UserRepository;
 
+/**
+ * @author marcof
+ *
+ */
 @Component
 public class UsersService implements UserDetailsService {
 	
 	@Autowired
 	UserRepository userRepository;
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		com.example.exchange.model.User user = userRepository.findUserByDetails(username);

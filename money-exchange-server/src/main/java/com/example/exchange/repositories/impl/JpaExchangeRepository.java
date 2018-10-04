@@ -3,6 +3,7 @@ package com.example.exchange.repositories.impl;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,11 @@ public class JpaExchangeRepository implements ExchangeRepository {
 		rate.setParameter("occ", originCurrency);
 		rate.setParameter("dcc", destinationCurrency);
 		rate.setMaxResults(1);
-		return (ExchangeRate) rate.getSingleResult();
+		try {
+			return (ExchangeRate) rate.getSingleResult();
+		} catch (NoResultException  e) {
+			return null;
+		}
 	}
 
 }

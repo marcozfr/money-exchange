@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.exchange.config.exception.ApplicationException;
 import com.example.exchange.dto.ExchangeRequestDTO;
 import com.example.exchange.dto.ExchangeResponseDTO;
 import com.example.exchange.service.impl.ExchangeService;
@@ -25,10 +26,11 @@ public class ExchangeController {
 	 * Gets the latest exchange rate of a given date 
 	 * @param exchangeRequest
 	 * @return
+	 * @throws ApplicationException 
 	 */
 	@RequestMapping(value="/exchange",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ExchangeResponseDTO getExchangeRate(@RequestBody ExchangeRequestDTO exchangeRequest) {
-		return exchangeService.getStrategy("euro").exchange(exchangeRequest);
+    public ExchangeResponseDTO getExchangeRate(@RequestBody ExchangeRequestDTO exchangeRequest) throws ApplicationException {
+		return exchangeService.getExchange(exchangeRequest);
     }
 	
 }

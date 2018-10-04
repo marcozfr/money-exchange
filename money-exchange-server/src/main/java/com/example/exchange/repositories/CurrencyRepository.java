@@ -4,6 +4,10 @@ import java.util.List;
 
 import com.example.exchange.model.Currency;
 
+/**
+ * @author marcof
+ *
+ */
 public interface CurrencyRepository {
 	
 	/**
