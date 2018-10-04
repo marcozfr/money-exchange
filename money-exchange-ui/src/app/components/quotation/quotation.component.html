@@ -1,0 +1,47 @@
+<main>
+  <header class="jumbotron text-center main-header">
+    <div class="container">
+      <div class="logo-wrapper">
+          <img class="logo" src="../../assets/img/profits.svg" alt="Money Exchange IO">
+      </div>
+    	<h1 class="jumbotron-heading">MoneyExchange.io</h1>
+    	<p class="lead text-muted">Easiest money exchange</p>
+    </div>
+  </header>
+  <section class="text-center main-content">
+    <div class="container inner-main-content">
+      <div class="row form-group">
+          <div class="col-md-6">
+            <input class="form-control" type="text" id="originCurrency" placeholder="{{exchangeRequest.origin}}"
+              mame="originCurrency" required [(ngModel)]="exchangeRequest.amountStr"
+              [textMask]="{mask: currencyMask}"  />
+          </div>
+          <div class="col-md-6">
+            <input class="form-control" type="text" disabled="disabled" id="originCurrency" placeholder="{{exchangeRequest.destination}}"
+              name="destinationCurrency" required [(ngModel)]="exchangeResponse.quotationAmount"
+              [textMask]="{mask: currencyMask}"  />
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn-calculate btn btn-secondary" type="submit" (click)='getExchangeRate()'>Calculate</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="main-footer text-muted">
+  <div class="container">
+    <div class="row" style="text-align : center;">
+      <div class="col-md-4">
+        <p>Developed by <q>Marco Flores</q></p>
+      </div>
+      <div class="col-md-4">
+        <p>Best money exchange site ever</p>
+      </div>
+      <div class="col-md-4">
+        <p>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
+      </div>
+    </div>
+  </div>
+</footer>

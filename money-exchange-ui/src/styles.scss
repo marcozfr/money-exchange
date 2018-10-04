@@ -1,0 +1,96 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Varela', sans-serif;
+	line-height: 1.6;
+	color: #3a3a3a;
+}
+
+p {
+	font-size: .95em;
+	margin-bottom: 1.8em;
+}
+
+h2,
+h3,
+a {
+	color: #093a58;
+}
+
+h2,
+h3,
+h4 {
+	margin-top: 0;
+}
+
+h4 {
+	margin-bottom: .4em;
+}
+
+a {
+	text-decoration: none;
+}
+
+img {
+	max-width: 100%;
+}
+
+.jumbotron {
+  background-color: white;
+  margin-bottom: 0px;
+  padding: 2rem 1rem;
+}
+
+.row {
+  padding-top: 1rem;
+  padding-botton: 1rem;
+}
+
+.main-header {
+  box-shadow: 10px 10px 5px grey;
+}
+
+.main-content {
+   background-color: #c3cbd8;
+   min-height: calc(400px - 180px);
+   height: 100%;
+}
+
+.inner-main-content {
+  margin: auto;
+  width: 40%;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  margin-botton: 2rem;
+}
+
+.logo-wrapper {
+  margin : auto;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  background-color : #afafaf;
+}
+
+.logo {
+  margin: 20px auto 20px auto;
+	width: 80px;
+}
+
+.btn-calculate {
+  text-transform: uppercase;
+  padding:  0.7rem 1.9rem;
+  border-style : none;
+}
+
+.btn-calculate:visited {
+  border-style : none;
+}
+
+.main-footer {
+  margin-top: 40px;
+  background-color: white;/*#c3cbd8;*/
+  height: 180px;
+}
