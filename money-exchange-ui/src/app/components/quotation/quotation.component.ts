@@ -67,10 +67,10 @@ export class QuotationComponent implements OnInit {
       .subscribe(response => {
         this.calculateQuotation(response);
       }, error => {
-        if(error.status == '500' || error.status == '0'){
+        if(error.status == '0'){
             this.message = 'Service unavailable';
         }else{
-            this.message = error.message;
+            this.message = error.error.message;
         }
       });
 
