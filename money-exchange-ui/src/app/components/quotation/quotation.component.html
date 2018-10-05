@@ -10,14 +10,15 @@
     </div>
   </header>
   <section class="text-center main-content">
-    <form [formGroup]="quotationForm" (ngSubmit)="onSubmit()">
-      <div class="container inner-main-content">
+    <form [formGroup]="quotationForm" (ngSubmit)="onSubmit()" autocomplete="off">
+      <div class="container inner-main-content" *ngIf="controlsLoaded">
         <div class="row form-group">
             <div class="col-md-6">
               <input class="form-control" formControlName="amount" type="text" id="originCurrency" placeholder="{{exchangeRequest.origin}}"
                 mame="originCurrency" required
                 [ngClass]="{ 'is-invalid': submitted && quotationForm.controls.amount.errors }"
-                [textMask]="{mask: currencyMask}"  />
+                (change)="exchangeRequest.quotationAmount = ''"
+                [textMask]="{mask: currencyMap[exchangeRequest.origin].currencyMask}"  />
               <div *ngIf="submitted && quotationForm.controls.amount.errors" class="invalid-feedback">
                     <div *ngIf="quotationForm.controls.amount.errors.required">Amount is required</div>
               </div>
@@ -26,12 +27,19 @@
               <input class="form-control" type="text" disabled="disabled" id="originCurrency" placeholder="{{exchangeRequest.destination}}"
                 name="destinationCurrency" required [(ngModel)]="exchangeResponse.quotationAmount"
                 [ngModelOptions]="{standalone: true}"
-                [textMask]="{mask: eurCurrencyMask}"  />
+                [textMask]="{mask: currencyMap[exchangeRequest.destination].currencyMask}"  />
             </div>
         </div>
         <div class="row">
           <div class="col-md-12">
             <button class="btn-site btn btn-secondary" type="submit">Calculate</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div *ngIf = "message" class="error-message">
+              {{message}}
+            </div>
           </div>
         </div>
       </div>

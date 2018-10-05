@@ -12,7 +12,7 @@ export class CurrencyService {
   constructor(private http: HttpClient) {
   }
 
-  getCurrenciesList(): Observable<any> {
+  getCurrenciesList(): Observable<Object> {
     return this.http.get(`${SERVER_API_URL}/currencies`);
   }
 

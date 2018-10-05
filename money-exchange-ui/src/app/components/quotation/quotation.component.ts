@@ -24,8 +24,8 @@ export class QuotationComponent implements OnInit {
   currencyMap : CurrencyMap = new CurrencyMap();
   quotationForm: FormGroup;
   submitted = false;
-  currencyMask;
-  eurCurrencyMask;
+  controlsLoaded = false;
+  message = '';
 
   constructor(
     private exchangeService : ExchangeService,
@@ -38,69 +38,55 @@ export class QuotationComponent implements OnInit {
     });
     this.exchangeRequest.origin = DEFAULT_ORIGIN_CURRENCY;
     this.exchangeRequest.destination = DEFAULT_DEST_CURRENCY;
-    this.currencyMask = createNumberMask({
-      prefix: '$ ',
-      suffix: '',
-      includeThousandsSeparator: true,
-      allowDecimal: true,
-      decimalLimit: 4,
-      requireDecimal: true,
-      allowNegative: false,
-      allowLeadingZeroes: false
+    this.currencyService.getCurrenciesList().subscribe(data => {
+      for(let i in data){
+        data[i].currencyMask = createNumberMask({
+          prefix: `${data[i].currencySymbol} `,
+          suffix: '',
+          includeThousandsSeparator: true,
+          allowDecimal: true,
+          decimalLimit: 4,
+          requireDecimal: true,
+          allowNegative: false,
+          allowLeadingZeroes: false
+        });
+        this.currencyMap[data[i].currencyCode] = data[i];
+        this.controlsLoaded = true;
+      }
     });
-    this.eurCurrencyMask = createNumberMask({
-      prefix: '€ ',
-      suffix: '',
-      includeThousandsSeparator: true,
-      allowDecimal: true,
-      decimalLimit: 4,
-      requireDecimal: true,
-      allowNegative: false,
-      allowLeadingZeroes: false
-    });
-    // this.currencyService.getCurrenciesList().subscribe(data => {
-    //   for(let i in data){
-    //     data[i].currencyMask = createNumberMask({
-    //       prefix: data.currencySymbol,
-    //       suffix: '',
-    //       includeThousandsSeparator: true,
-    //       allowDecimal: true,
-    //       decimalLimit: 4,
-    //       requireDecimal: true,
-    //       allowNegative: false,
-    //       allowLeadingZeroes: false
-    //     });
-    //     this.currencyMap[data[i].currencyCode] = data[i];
-    //   }
-    // });
-  }
-
-  unmask(amount) {
-    return amount.replace(/\D+/g, '');
   }
 
   onSubmit() {
-
     this.submitted = true;
+    this.message = undefined;
 
     if (this.quotationForm.invalid) {
         return;
     }
 
-    let currentDate = new Date();
-    let dateString = currentDate.getFullYear() + "-" +(currentDate.getMonth() + 1) + "-" + currentDate.getDate();
-    this.exchangeRequest.exchangeDate = dateString;
-    this.exchangeRequest.amount = parseFloat(this.quotationForm.controls.amount.value.slice(2));
+    this.buildExchangeRequest();
     this.exchangeService.getExchangePrice(this.exchangeRequest)
       .subscribe(data => {
         this.calculateQuotation(data);
       }, error => {
-        console.log(error)
+        if(error.status == '500' || error.status == '0'){
+            this.message = 'Service unavailable';
+        }else{
+            this.message = error.message;
+        }
       });
   }
 
   calculateQuotation(exchangeResponse : ExchangeResponse){
-    this.exchangeResponse.quotationAmount = exchangeResponse.exchangeRate * this.exchangeRequest.amount;
+    this.exchangeResponse = exchangeResponse;
+    this.exchangeResponse.quotationAmount = this.exchangeResponse.exchangeRate * this.exchangeRequest.amount;
+  }
+
+  buildExchangeRequest () {
+    let currentDate = new Date();
+    let dateString = currentDate.getFullYear() + "-" +(currentDate.getMonth() + 1) + "-" + currentDate.getDate();
+    this.exchangeRequest.exchangeDate = dateString;
+    this.exchangeRequest.amount = parseFloat(this.quotationForm.controls.amount.value.slice(2));
   }
 
 }

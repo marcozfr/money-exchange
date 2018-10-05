@@ -30,11 +30,12 @@ export class AuthComponent implements OnInit {
     });
 
     this.authService.logout();
-    this.returnUrl = '/';
+
   }
 
   onSubmit() {
           this.submitted = true;
+          this.errorMessage = undefined;
 
           if (this.loginForm.invalid) {
               return;
@@ -50,7 +51,7 @@ export class AuthComponent implements OnInit {
                       if(error.status == '401'){
                           this.errorMessage = 'Invalid Credentials';
                       }else {
-                          this.errorMessage = 'Internal Server error';
+                          this.errorMessage = 'Service unavailable';
                       }
                   });
       }

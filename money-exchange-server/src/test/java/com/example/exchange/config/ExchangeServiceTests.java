@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +26,6 @@ import com.example.exchange.repositories.ExchangeRepository;
 import com.example.exchange.service.impl.ExchangeService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class ExchangeServiceTests {
 	
 	@MockBean
@@ -37,7 +35,7 @@ public class ExchangeServiceTests {
 	private ExchangeService exchangeService;
 	
 	@TestConfiguration
-    static class MoneyExchangeApplicationTestsConfig {
+    static class ExchangeServiceTestsConfig {
   
         @Bean
         public ExchangeService exchangeService() {
@@ -51,9 +49,6 @@ public class ExchangeServiceTests {
 	    Date noExchangeDate = formatter.parse("2022-10-02");
 	    Date hasExchangeDate = formatter.parse("2018-10-02");
 	 
-	    Mockito.when(exchangeRepository.getExchangeRate(noExchangeDate, "USD", "EUR"))
-	      .thenReturn(null);
-	    
 	    Mockito.when(exchangeRepository.getExchangeRate(ArgumentMatchers.eq(noExchangeDate), 
 	    		ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
 	      .thenReturn(null);

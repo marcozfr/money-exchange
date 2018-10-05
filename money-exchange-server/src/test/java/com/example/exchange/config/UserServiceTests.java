@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +20,6 @@ import com.example.exchange.repositories.UserRepository;
 import com.example.exchange.service.impl.UsersService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class UserServiceTests {
 	
 	@MockBean
@@ -31,7 +29,7 @@ public class UserServiceTests {
 	private UsersService userService;
 	
 	@TestConfiguration
-    static class MoneyExchangeApplicationTestsConfig {
+    static class UserServiceTestsConfig {
   
         @Bean
         public UsersService userService() {
@@ -60,7 +58,7 @@ public class UserServiceTests {
 	}
 	
 	/**
-	 * Test if an exception is raised when username does not exist in database
+	 * Test if an exception is raised when an username does not exist in database
 	 */
 	@Test(expected=UsernameNotFoundException.class)
 	public void throwExceptionOnInexistentUserTest() {

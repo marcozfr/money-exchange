@@ -29,7 +29,8 @@ public class ExchangeController {
 	 * @throws ApplicationException 
 	 */
 	@RequestMapping(value="/exchange",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ExchangeResponseDTO getExchangeRate(@RequestBody ExchangeRequestDTO exchangeRequest) throws ApplicationException {
+    public ExchangeResponseDTO getExchangeRate(@RequestBody ExchangeRequestDTO exchangeRequest) 
+    		throws ApplicationException {
 		return exchangeService.getExchange(exchangeRequest);
     }
 	
