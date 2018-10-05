@@ -78,7 +78,7 @@ export class QuotationComponent implements OnInit {
 
   calculateQuotation(exchangeResponse : ExchangeResponse){
     let amount = this.quotationForm.controls.amount.value.slice(2);
-    this.convertedAmount = exchangeResponse.exchangeRate * amount;
+    this.convertedAmount = exchangeResponse.exchangeRate * parseFloat(amount);
   }
 
 
