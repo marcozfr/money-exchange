@@ -27,6 +27,8 @@ public class Util {
 			exchangeDate = new SimpleDateFormat(pattern).parse(date);
 		} catch (ParseException e) {
 			throw new ApplicationException("Invalid date format");
+		} catch (IllegalArgumentException e) {
+			throw new ApplicationException("Invalid format");
 		}
 		return exchangeDate;
 	}
