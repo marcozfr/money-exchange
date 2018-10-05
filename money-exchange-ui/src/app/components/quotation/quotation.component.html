@@ -14,20 +14,19 @@
       <div class="container inner-main-content" *ngIf="controlsLoaded">
         <div class="row form-group">
             <div class="col-md-6">
-              <input class="form-control" formControlName="amount" type="text" id="originCurrency" placeholder="{{exchangeRequest.origin}}"
+              <input class="form-control" formControlName="amount" type="text" id="originCurrency" placeholder="{{origin}}"
                 mame="originCurrency" required
                 [ngClass]="{ 'is-invalid': submitted && quotationForm.controls.amount.errors }"
-                (change)="exchangeRequest.quotationAmount = ''"
-                [textMask]="{mask: currencyMap[exchangeRequest.origin].currencyMask}"  />
+                (change)="convertedAmount = ''"
+                [textMask]="{mask: currencyMap[origin].currencyMask}"  />
               <div *ngIf="submitted && quotationForm.controls.amount.errors" class="invalid-feedback">
                     <div *ngIf="quotationForm.controls.amount.errors.required">Amount is required</div>
               </div>
             </div>
             <div class="col-md-6">
-              <input class="form-control" type="text" disabled="disabled" id="originCurrency" placeholder="{{exchangeRequest.destination}}"
-                name="destinationCurrency" required [(ngModel)]="exchangeResponse.quotationAmount"
-                [ngModelOptions]="{standalone: true}"
-                [textMask]="{mask: currencyMap[exchangeRequest.destination].currencyMask}"  />
+              <input class="form-control" type="text" disabled="disabled" id="originCurrency" placeholder="{{destination}}"
+                name="destinationCurrency" [(ngModel)]="convertedAmount" [ngModelOptions]="{standalone: true}"
+                [textMask]="{mask: currencyMap[destination].currencyMask}"  />
             </div>
         </div>
         <div class="row">

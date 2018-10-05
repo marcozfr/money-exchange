@@ -18,14 +18,14 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
   styleUrls: ['./quotation.component.scss']
 })
 export class QuotationComponent implements OnInit {
-
-  exchangeRequest : ExchangeRequest = new ExchangeRequest();
-  exchangeResponse : ExchangeResponse = new ExchangeResponse();
   currencyMap : CurrencyMap = new CurrencyMap();
   quotationForm: FormGroup;
   submitted = false;
   controlsLoaded = false;
   message = '';
+  origin = DEFAULT_ORIGIN_CURRENCY;
+  destination = DEFAULT_DEST_CURRENCY;
+  convertedAmount;
 
   constructor(
     private exchangeService : ExchangeService,
@@ -34,10 +34,8 @@ export class QuotationComponent implements OnInit {
 
   ngOnInit() {
     this.quotationForm = this.formBuilder.group({
-        amount: ['', Validators.required],
+        amount: ['', Validators.required]
     });
-    this.exchangeRequest.origin = DEFAULT_ORIGIN_CURRENCY;
-    this.exchangeRequest.destination = DEFAULT_DEST_CURRENCY;
     this.currencyService.getCurrenciesList().subscribe(data => {
       for(let i in data){
         data[i].currencyMask = createNumberMask({
@@ -54,6 +52,7 @@ export class QuotationComponent implements OnInit {
         this.controlsLoaded = true;
       }
     });
+
   }
 
   onSubmit() {
@@ -64,10 +63,9 @@ export class QuotationComponent implements OnInit {
         return;
     }
 
-    this.buildExchangeRequest();
-    this.exchangeService.getExchangePrice(this.exchangeRequest)
-      .subscribe(data => {
-        this.calculateQuotation(data);
+    this.exchangeService.getLatestExchangePrice(this.origin, this.destination)
+      .subscribe(response => {
+        this.calculateQuotation(response);
       }, error => {
         if(error.status == '500' || error.status == '0'){
             this.message = 'Service unavailable';
@@ -75,18 +73,14 @@ export class QuotationComponent implements OnInit {
             this.message = error.message;
         }
       });
+
   }
 
   calculateQuotation(exchangeResponse : ExchangeResponse){
-    this.exchangeResponse = exchangeResponse;
-    this.exchangeResponse.quotationAmount = this.exchangeResponse.exchangeRate * this.exchangeRequest.amount;
+    let amount = this.quotationForm.controls.amount.value.slice(2);
+    this.convertedAmount = exchangeResponse.exchangeRate * amount;
   }
 
-  buildExchangeRequest () {
-    let currentDate = new Date();
-    let dateString = currentDate.getFullYear() + "-" +(currentDate.getMonth() + 1) + "-" + currentDate.getDate();
-    this.exchangeRequest.exchangeDate = dateString;
-    this.exchangeRequest.amount = parseFloat(this.quotationForm.controls.amount.value.slice(2));
-  }
+
 
 }
