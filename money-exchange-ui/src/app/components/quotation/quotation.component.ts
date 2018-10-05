@@ -42,9 +42,10 @@ export class QuotationComponent implements OnInit {
           prefix: `${data[i].currencySymbol} `,
           suffix: '',
           includeThousandsSeparator: true,
+          integerLimit: 8,
           allowDecimal: true,
           decimalLimit: 4,
-          requireDecimal: true,
+            requireDecimal: true,
           allowNegative: false,
           allowLeadingZeroes: false
         });
@@ -77,7 +78,7 @@ export class QuotationComponent implements OnInit {
   }
 
   calculateQuotation(exchangeResponse : ExchangeResponse){
-    let amount = this.quotationForm.controls.amount.value.slice(2);
+    let amount = this.quotationForm.controls.amount.value.slice(2).replace(/,/g, '');
     this.convertedAmount = exchangeResponse.exchangeRate * parseFloat(amount);
   }
 
