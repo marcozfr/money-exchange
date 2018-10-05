@@ -1,4 +1,4 @@
-package com.example.exchange.config;
+package com.example.exchange.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,7 +18,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.example.exchange.config.exception.ApplicationException;
+import com.example.exchange.config.exception.ClientException;
+import com.example.exchange.config.exception.ObjectNotFoundException;
 import com.example.exchange.dto.ExchangeRequestDTO;
 import com.example.exchange.dto.ExchangeResponseDTO;
 import com.example.exchange.model.ExchangeRate;
@@ -68,10 +69,11 @@ public class ExchangeServiceTests {
 	
 	/**
 	 * Test exchange rate retrieval for valid date
-	 * @throws ApplicationException 
+	 * @throws ClientException 
+	 * @throws ObjectNotFoundException 
 	 */
 	@Test
-	public void hasExchangeDateTest() throws ApplicationException {
+	public void hasExchangeDateTest() throws ClientException, ObjectNotFoundException {
 		ExchangeRequestDTO request = new ExchangeRequestDTO();
 		request.setExchangeDate("2018-10-02");
 		request.setOrigin("USD");
@@ -83,10 +85,11 @@ public class ExchangeServiceTests {
 	
 	/**
 	 * Test exchange rate retrieval for invalid date
-	 * @throws ApplicationException 
+	 * @throws ClientException 
+	 * @throws ObjectNotFoundException 
 	 */
-	@Test(expected=ApplicationException.class)
-	public void hasNoExchangeDateTest() throws ApplicationException {
+	@Test(expected=ObjectNotFoundException.class)
+	public void hasNoExchangeDateTest() throws ClientException, ObjectNotFoundException {
 		ExchangeRequestDTO request = new ExchangeRequestDTO();
 		request.setExchangeDate("2022-10-02");
 		request.setOrigin("USD");
@@ -96,10 +99,11 @@ public class ExchangeServiceTests {
 	
 	/**
 	 * Test exchange rate retrieval for invalid origin and destinations
-	 * @throws ApplicationException 
+	 * @throws ClientException 
+	 * @throws ObjectNotFoundException 
 	 */
-	@Test(expected=ApplicationException.class)
-	public void hasNoExchangeRateForOriginAndDestinationTest() throws ApplicationException {
+	@Test(expected=ObjectNotFoundException.class)
+	public void hasNoExchangeRateForOriginAndDestinationTest() throws ClientException, ObjectNotFoundException {
 		ExchangeRequestDTO request = new ExchangeRequestDTO();
 		request.setExchangeDate("2023-10-02");
 		request.setOrigin("USD");
@@ -109,10 +113,11 @@ public class ExchangeServiceTests {
 	
 	/**
 	 * Test when input date is not a valid formatted date.
-	 * @throws ApplicationException 
+	 * @throws ClientException 
+	 * @throws ObjectNotFoundException 
 	 */
-	@Test(expected=ApplicationException.class)
-	public void invalidDateFormatTest() throws ApplicationException {
+	@Test(expected=ClientException.class)
+	public void invalidDateFormatTest() throws ClientException, ObjectNotFoundException {
 		ExchangeRequestDTO request = new ExchangeRequestDTO();
 		request.setExchangeDate("2023-10-XX");
 		request.setOrigin("PEN");

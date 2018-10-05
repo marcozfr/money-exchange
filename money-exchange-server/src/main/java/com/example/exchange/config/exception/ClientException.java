@@ -1,13 +1,13 @@
 package com.example.exchange.config.exception;
 
-public class ApplicationException extends Exception {
+public class ClientException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public ApplicationException(String message) {
+	public ClientException(String message) {
 		super(message);
 	}
 	

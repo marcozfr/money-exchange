@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.exchange.config.exception.ApplicationException;
+import com.example.exchange.config.exception.ClientException;
+import com.example.exchange.config.exception.ObjectNotFoundException;
 import com.example.exchange.dto.ExchangeRequestDTO;
 import com.example.exchange.dto.ExchangeResponseDTO;
 import com.example.exchange.service.impl.ExchangeService;
@@ -26,11 +27,12 @@ public class ExchangeController {
 	 * Gets the latest exchange rate of a given date 
 	 * @param exchangeRequest
 	 * @return
-	 * @throws ApplicationException 
+	 * @throws ClientException 
+	 * @throws ObjectNotFoundException 
 	 */
 	@RequestMapping(value="/exchange",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ExchangeResponseDTO getExchangeRate(@RequestBody ExchangeRequestDTO exchangeRequest) 
-    		throws ApplicationException {
+    public ExchangeResponseDTO getExchangeRate(
+    		@RequestBody ExchangeRequestDTO exchangeRequest) throws ClientException, ObjectNotFoundException {
 		return exchangeService.getExchange(exchangeRequest);
     }
 	

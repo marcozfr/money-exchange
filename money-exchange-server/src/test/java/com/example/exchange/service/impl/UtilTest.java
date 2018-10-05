@@ -1,4 +1,4 @@
-package com.example.exchange.config;
+package com.example.exchange.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -7,18 +7,18 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import com.example.exchange.config.exception.ApplicationException;
+import com.example.exchange.config.exception.ClientException;
 import com.example.exchange.util.Util;
 
 public class UtilTest {
 	
-	@Test(expected=ApplicationException.class)
-	public void invalidDateTest() throws ApplicationException {
+	@Test(expected=ClientException.class)
+	public void invalidDateTest() throws ClientException {
 		Util.parseDate("xzxcz", "yyyy-MM-dd");
 	}
 	
 	@Test
-	public void validDateTest() throws ApplicationException {
+	public void validDateTest() throws ClientException {
 		Date date = Util.parseDate("2018-09-20", "yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -27,8 +27,8 @@ public class UtilTest {
 		assertThat(cal.get(Calendar.DAY_OF_MONTH)).isEqualTo(20);
 	}
 	
-	@Test(expected=ApplicationException.class)
-	public void invalidFormatTest() throws ApplicationException {
+	@Test(expected=ClientException.class)
+	public void invalidFormatTest() throws ClientException {
 		Date date = Util.parseDate("2018-09-20", "yyxx");
 	}
 

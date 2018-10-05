@@ -1,4 +1,4 @@
-package com.example.exchange.config;
+package com.example.exchange.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.example.exchange.config.exception.ApplicationException;
+import com.example.exchange.config.exception.ClientException;
 import com.example.exchange.dto.CurrencyDTO;
 import com.example.exchange.model.Currency;
 import com.example.exchange.repositories.CurrencyRepository;
@@ -53,10 +53,10 @@ public class CurrencyServiceTests {
 	
 	/**
 	 * Tests if list is empty
-	 * @throws ApplicationException 
+	 * @throws ClientException 
 	 */
 	@Test
-	public void shouldReturnEmptyTest() throws ApplicationException {
+	public void shouldReturnEmptyTest() throws ClientException {
 		Mockito.when(currencyRepository.getCurrencies())
 	      .thenReturn(new ArrayList<Currency>());
 		

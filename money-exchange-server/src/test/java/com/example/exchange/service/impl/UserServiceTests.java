@@ -1,4 +1,4 @@
-package com.example.exchange.config;
+package com.example.exchange.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
